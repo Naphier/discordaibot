@@ -1,0 +1,15 @@
+{
+	"name": "openai-rest-server",
+	"version": "1.0.0",
+	"main": "app.js",
+	"scripts": {
+		"start": "nvm use 18.15.0 && node app.js",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "Sean Mann",
+	"license": "ISC",
+	"dependencies": {
+		"express": "^4.18.2",
+        "openai": "^3.2.1"
+	}
+}
