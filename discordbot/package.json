@@ -1,0 +1,20 @@
+{
+  "name": "aibot",
+  "version": "0.0.1",
+  "description": "Disord bot for OpenAI interactions",
+  "main": "app.js",
+  "scripts": {
+    "production": "set NODE_ENV=production && npm start",
+    "start": "nvm use 18.15.0 && node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sean Mann",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.36.0"
+  },
+  "dependencies": {
+    "discord.js": "^14.8.0",
+    "openai": "^3.2.1"
+  }
+}

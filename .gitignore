@@ -1,2 +1,5 @@
 .vscode
 node_modules/
+config.json
+.env
+no_commit

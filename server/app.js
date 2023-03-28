@@ -80,6 +80,21 @@ app.post('/image', async (req, res) => {
         return;
     }
 
+    if (!req.body.size in ['256x256', '512x512', '1024x1024']) {
+        res.status(400).json({'error':'size must be 256x256, 512x512, or 1024x1024'});
+        return;
+    }
+
+    if (req.body.n > 10) {
+        res.status(400).json({'error':'n must be less than 10'});
+        return;
+    }
+
+    if (req.body.n < 1) {
+        res.status(400).json({'error':'n must be greater than 0'});
+        return;
+    }
+
     try {
         const response = await openai.createImage({
             prompt: req.body.prompt,
