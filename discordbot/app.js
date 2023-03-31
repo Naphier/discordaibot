@@ -20,6 +20,10 @@ client.on(Events.InteractionCreate, async interaction => {
     const command = client.commands.get(interaction.commandName);
 
 	if (!command) {
+        await interaction.reply({ 
+            content: `Command name: \`${interaction.commandName}\` not found.`, 
+            ephemeral: true,
+        });
 		console.error(`No command matching ${interaction.commandName} was found.`);
 		return;
 	}
@@ -56,16 +60,21 @@ client.on(Events.InteractionCreate, async interaction => {
 	}
     catch (error) {
 		console.error(error);
-		if (interaction.replied || interaction.deferred) {
-			await interaction.followUp({ 
-                content: 'There was an error while executing this command!', 
-                ephemeral: true });
-		} 
-        else {
-			await interaction.reply({ 
-                content: 'There was an error while executing this command!', 
-                ephemeral: true });
-		}
+        try {
+            if (interaction.replied || interaction.deferred) {
+                await interaction.followUp({ 
+                    content: 'There was an error while executing this command!', 
+                    ephemeral: true });
+            } 
+            else {
+                await interaction.reply({ 
+                    content: 'There was an error while executing this command!', 
+                    ephemeral: true });
+            }
+        }
+        catch (fatalError) {
+                console.error(fatalError);
+        }
 	}
 });
 

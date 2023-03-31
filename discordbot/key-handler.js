@@ -34,4 +34,6 @@ module.exports = async (dm, keyRegistry, userId) => {
             return;
         }
     }
+
+    return true;
 };

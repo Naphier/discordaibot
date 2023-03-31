@@ -1,11 +1,12 @@
 const { SlashCommandBuilder } = require('discord.js');
 const { Configuration, OpenAIApi } = require('openai');
-const KeyHandler = require('../key-handler.js');
+const KeyHandler = require('../../key-handler.js');
 
 module.exports = {
+    // TODO: Add options for inputting an image URL
 	data: new SlashCommandBuilder()
-		.setName('dall-e')
-		.setDescription('Use the OpenAI DALL-E to make something cool!')
+		.setName('dall-e2')
+		.setDescription('Use DALL-E 2 to make something cool!')
         .addStringOption(option =>
             option.setName('prompt')
                 .setDescription('Tell me what you want to see!')
@@ -23,10 +24,7 @@ module.exports = {
                 .setMinValue(1)
                 .setMaxValue(10)),
 	async execute(interaction) {
-        await interaction.reply({ 
-            content: 'Working on it! Expect a DM any second...', 
-            ephemeral: true,
-        });
+        await interaction.reply({ content: 'Sliding into your DMs!', ephemeral: true });
 
         const authorId = interaction.user.id;
         const dm = await interaction.user.createDM();
@@ -45,10 +43,11 @@ module.exports = {
                 size: interaction.options.getString('size') || '256x256',
             });
             
+            // TODO: Add buttons for upscaling and refining
             // response data {created, data: [{url}, {url}, ...]}
             s = response.data.data.length > 1;
             dm.send({
-               content: `Here ${s ? 'are' : 'is'} your image${s ? 's' : ''} for '${prompt}'!`, 
+               content: `Here ${s ? 'are' : 'is'} your image${s ? 's' : ''} for \`${prompt}\`!`, 
                files: response.data.data.map((url, index) => {
                     return {
                         attachment: url.url,
