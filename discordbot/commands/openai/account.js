@@ -111,7 +111,14 @@ module.exports = {
                     }
                     
                     sums['Total'] = data.total_usage / 100.0;
-                    dm.send(`Your account usage:
+
+                    for (const key in sums) {
+                        if (Number(sums[key]) === sums[key]) {
+                            sums[key] = Number(sums[key].toFixed(2));
+                        }
+                    }
+
+                    dm.send(`Your account usage (dollars):
 \`\`\`json
 ${JSON.stringify(sums, null, 4)}
 \`\`\``);

@@ -1,5 +1,14 @@
+const { my_openai_api_key } = require('./config.json');
+const PROD = (process.env.NODE_ENV?.trim() === 'production');
+
 module.exports = async (dm, keyRegistry, userId) => {
     if (!keyRegistry.get(userId)) {
+        if (!PROD && my_openai_api_key) {
+            keyRegistry.add(userId, my_openai_api_key);
+            dm.send('Dev key in use');
+            return true;
+        }
+
         dm.send('Please enter your OpenAI API key or type \'quit\'.');
         const filter = m => m.author.id === userId;    
         const collector = dm.createMessageCollector(filter, { time: 60000 });
