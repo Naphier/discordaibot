@@ -24,7 +24,7 @@ const dateHelper = (dateString, addDay = 0) => {
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('account')
+        .setName('account_old')
         .setDescription('OpenAI account usage in $. If wanting a single day enter only end_date.')
         .addStringOption(option =>
             option.setName('end_date')
