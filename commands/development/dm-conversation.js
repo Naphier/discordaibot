@@ -9,7 +9,7 @@ module.exports = {
         const dm = await interaction.user.createDM();
         dm.send('Hello! This is a DM conversation. Type "quit" to end it.');
         const filter = m => m.author.id === interaction.user.id;
-        const collector = dm.createMessageCollector(filter, { time: 60000 });
+        const collector = dm.createMessageCollector({ filter, time: 60000 });
         const authorId = interaction.user.id;
         collector.on('collect', message => {
             if (message.author.id !== authorId) return;

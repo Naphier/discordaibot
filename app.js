@@ -1,20 +1,32 @@
 const { DISCORD_BOT_TOKEN } = require('./config.json');
-const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
-const { RegisterCommands, DeployCommands } = require('./command-factory.js');
+const { Client, Collection, Events, GatewayIntentBits, Partials } = require('discord.js');
+const { RegisterGuildCommands, DeployCommands } = require('./command-factory.js');
 const KeyRegistry = require('./key-registry.js');
+// const KeyHandler = require('./key-handler');
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.DirectMessages] });
+const client = new Client({ 
+    intents: [
+        GatewayIntentBits.Guilds, 
+        GatewayIntentBits.DirectMessages,
+        GatewayIntentBits.MessageContent,
+    ],
+    partials:[
+        Partials.Channel,
+        Partials.GuildMember,
+    ],
+});
 
 client.once(Events.ClientReady, c => {
 	console.log(`Logged in as ${c.user.tag}!`);
 });
 
 DeployCommands();
-RegisterCommands(client);
+RegisterGuildCommands(client);
 
 const keyRegistry = new KeyRegistry();
 
 client.cooldowns = new Collection();
+
 client.on(Events.InteractionCreate, async interaction => {
     if (!interaction.isChatInputCommand()) return;
     const command = client.commands.get(interaction.commandName);
@@ -77,5 +89,17 @@ client.on(Events.InteractionCreate, async interaction => {
         }
 	}
 });
+
+/*
+client.on(Events.MessageCreate, async interaction => {
+    if (interaction.author.bot) return;
+    
+    await KeyHandler(interaction.channel, keyRegistry, interaction.author.id);
+
+    if (interaction.content === 'help') {
+        interaction.channel.send('You can use the following commands: `help`, `start`, `stop`.');
+    }
+});
+*/
 
 client.login(DISCORD_BOT_TOKEN);

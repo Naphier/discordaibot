@@ -24,10 +24,9 @@ module.exports = {
                 .setMinValue(1)
                 .setMaxValue(10)),
 	async execute(interaction) {
-        await interaction.reply({ content: 'Sliding into your DMs!', ephemeral: true });
-
-        const authorId = interaction.user.id;
         const dm = await interaction.user.createDM();
+        await interaction.reply({ content: `Sliding into your DMs! <#${dm.id}>`, ephemeral: true });
+        const authorId = interaction.user.id;
         await KeyHandler(dm, interaction.keyRegistry, authorId);
 
         try {

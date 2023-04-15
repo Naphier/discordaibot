@@ -5,7 +5,7 @@ const { REST, Routes } = require('discord.js');
 const { DISCORD_APP_ID, GUILD_ID, DISCORD_BOT_TOKEN } = require('./config.json');
 
 
-const RegisterCommands = (client) => {
+const RegisterGuildCommands = (client) => {
     client.commands = new Collection();
     const foldersPath = path.join(__dirname, 'commands');
     const commandFolders = fs.readdirSync(foldersPath);
@@ -89,6 +89,6 @@ const DeployCommands = () => {
 };
 
 module.exports = {
-    RegisterCommands: RegisterCommands, 
-    DeployCommands: DeployCommands,
+    RegisterGuildCommands, 
+    DeployCommands,
 };
