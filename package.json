@@ -4,8 +4,8 @@
   "description": "Disord bot for OpenAI interactions",
   "main": "app.js",
   "scripts": {
-    "production": "set NODE_ENV=production && npm start",
-    "start": "nvm use 10.18.0 && node app.js",
+    "production": "nvm use 16.18.1 && NODE_ENV=production node app.js",
+    "start": "nvm use 16.18.1 && node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Sean Mann",
